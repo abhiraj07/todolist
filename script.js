@@ -10,19 +10,32 @@ let filter = '';
 showTodos();
 
 function getTodoHtml(todo, index) {
-  if (filter && filter != todo.status) {
+  if (filter && filter!= todo.status) {
     return '';
   }
-  let checked = todo.status == "completed" ? "checked" : "";
+  let checked = todo.status == "completed"? "checked" : "";
   return /* html */ `
     <li class="todo">
       <label for="${index}">
         <input id="${index}" onclick="updateStatus(this)" type="checkbox" ${checked}>
         <span class="${checked}">${todo.name}</span>
       </label>
-      <button class="delete-btn" data-index="${index}" onclick="remove(this)"><i class="fa fa-times"></i></button>
+     <div class="button-contain">
+
+      <button class="edit-btn" data-index="${index}" onclick="edit(this)"><i class="fa fa-pencil"></i></button>
+      <button class="delete-btn" data-index="${index}" onclick="remove(this)"><i class="fa fa-times "></i></button>
+     </div>
     </li>
-  `; 
+  `;
+}
+function edit(todo) {
+  const index = todo.dataset.index;
+  const todoName = prompt("Edit todo:", todosJson[index].name);
+  if (todoName) {
+    todosJson[index].name = todoName;
+    localStorage.setItem("todos", JSON.stringify(todosJson));
+    showTodos();
+  }
 }
 
 function showTodos() {
