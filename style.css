@@ -198,6 +198,10 @@ input:checked + span {
   transition: all 0.2s ease;
 }
 
+.edit-btn {
+  margin-right: 10px; /* adjust the value to your liking */
+}
+
 .delete-all:hover {
   border-radius: 5px;
   background-color: #e6b7eca1;
